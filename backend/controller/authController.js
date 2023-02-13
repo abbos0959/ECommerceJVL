@@ -44,4 +44,15 @@ const Login = catchErrorAsync(async (req, res, next) => {
    jwtToken(user, 200, res);
 });
 
-module.exports = { Register, Login };
+const Logout = catchErrorAsync(async (req, res) => {
+   res.clearCookie("token", null, {
+      maxAge: new Date(Date.now()),
+      httpOnly: true,
+   });
+   res.status(200).json({
+      message: true,
+      message: "Logout User",
+   });
+});
+
+module.exports = { Register, Login, Logout };

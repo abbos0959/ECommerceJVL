@@ -19,12 +19,11 @@ exports.Isauthentication = catchErrorAsync(async (req, res, next) => {
 
    next();
 });
-
 // role bo`yicha kirish
 exports.authoriseRoles = (...roles) => {
    return (req, res, next) => {
       if (!roles.includes(req.user.role)) {
-         return next(new AppError(`Siz admin emassiz`, 403));
+         return next(new AppError(`Siz bunday huquqqa ega emassiz`, 403));
       }
       next();
    };
