@@ -1,8 +1,14 @@
 const ProductModel = require("../models/productModel");
 const mongoose = require("mongoose");
+const ApiFeatures = require("../utils/ApiFeatures");
 const GetallPRoduct = async (req, res, next) => {
    try {
-      const product = await ProductModel.find();
+      const resultperpage = 2;
+      const features = new ApiFeatures(ProductModel.find(), req.query)
+         .search()
+         .filter()
+         .pagination(resultperpage);
+      const product = await features.query;
 
       res.status(200).json({
          message: `all product ${product.length}`,
